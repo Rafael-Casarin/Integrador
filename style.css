@@ -1,0 +1,133 @@
+*{
+  box-sizing: border-box;
+}
+
+body{
+  margin: 0;
+  padding: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: linear-gradient(to right, #e8f5e9, #f1f8e9);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.container{
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  flex: 1;
+}
+
+.cabecalho{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;   /* garante alinhamento vertical */
+  background: linear-gradient(90deg, #51801B 0%, #7BB169 25%, #B9DEC7 50%, #78A76A 75%, #6CA52C 100%);
+  padding: 10px 15px;
+}
+
+.bg{
+  width: 30px;
+  height: auto;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.agri{
+  color: white;
+  font-size: 25px;
+  text-decoration: none;
+}
+
+.conteudo-principal-escrito-titulo{
+  font-size: clamp(32px, 5vw, 56px);
+  margin-bottom: 20px;
+}
+
+.corpo-secundario-titulo{
+  color: #2e7d32;
+}
+
+.upload{
+  cursor: pointer;
+  padding: 14px 20px;
+  border-radius: 8px;
+  border: 2px solid #333;
+  background: white;
+  font-size: 15px;
+  transition: 0.2s;
+}
+
+.upload:hover{
+  background: #f0f0f0;
+}
+
+.footer-contato{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(90deg, #51801B 0%, #7BB169 25%, #B9DEC7 50%, #78A76A 75%, #6CA52C 100%);
+  color: white;
+  padding: 18px 20px;
+  gap: 15px;
+}
+
+.github-link{
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  background-color: #1b5e20;
+  padding: 10px 15px;
+  border-radius: 5px;
+}
+
+.github-link:hover{
+  background-color: #2e7d32;
+}
+
+img{
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin-top: 10px;
+}
+
+@media (max-width: 768px){
+  .cabecalho{
+    padding: 10px;
+  }
+
+  .agri{
+    font-size: 20px;
+  }
+
+  .bg{
+    width: 26px;
+  }
+
+  .conteudo-principal-escrito-titulo{
+    font-size: 30px;
+  }
+
+  .footer-contato{
+    flex-direction: column;
+    text-align: center;
+    gap: 12px;
+  }
+
+  .footer-contato h4{
+    margin: 0;
+  }
+
+  .upload{
+    max-width: 100%;
+  }
+
+  .github-link{
+    width: 100%;
+    max-width: 220px;
+    text-align: center;
+  }
+}
