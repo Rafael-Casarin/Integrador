@@ -24,7 +24,7 @@ body{
   display: flex;
   justify-content: space-between;
   align-items: center;   /* garante alinhamento vertical */
-  background: linear-gradient(90deg, #51801B 0%, #7BB169 25%, #B9DEC7 50%, #78A76A 75%, #6CA52C 100%);
+  background: linear-gradient(90deg, #51801B 0%, #7BB169 25%, #7ba189 50%, #78A76A 75%, #6CA52C 100%);
   padding: 10px 15px;
 }
 
@@ -68,7 +68,7 @@ body{
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: linear-gradient(90deg, #51801B 0%, #7BB169 25%, #B9DEC7 50%, #78A76A 75%, #6CA52C 100%);
+  background: linear-gradient(90deg, #51801B 0%, #7BB169 25%, #7ba189 50%, #78A76A 75%, #6CA52C 100%);
   color: white;
   padding: 18px 20px;
   gap: 15px;
