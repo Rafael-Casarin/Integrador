@@ -1,64 +1,81 @@
-<!DOCTYPE html>
-<html lang="pt-BR"> 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>LabLeaf</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
-</head>
+    <link rel="stylesheet" href="style.css" />
+  </head>
 
-<body>
-  <header class="cabecalho">
-    <div class="logo-area">
-        <img src="Leaf.png" alt="Logo LabLeaf" class="logo-img">
-    </div>
+  <body>
+    <header class="cabecalho">
+      <div class="logo-area">
+        <img src="imagens/Leaf.png" alt="Logo LabLeaf" class="logo-img" />
+      </div>
 
-    <nav class="menu">
+      <nav class="menu">
         <a href="#" class="active">Analise</a>
         <a href="#">Relatórios</a>
         <a href="#">Planos</a>
-    </nav>
+      </nav>
 
-    <a href="#" class="user" title="Perfil do usuário">
+      <a href="#" class="user" title="Perfil do usuário">
         <span class="user-icon">👤</span>
         <span>Welcome, John</span>
         <span class="seta">▼</span>
-    </a>
-</header>
-	
+      </a>
+    </header>
+
     <div class="container">
-        <main class="conteudo">
-            <section class="conteudo-principal">
-                <div class="conteudo-principal-escrito">
-                    <h1 class="conteudo-principal-escrito-titulo">Analisar imagem com IA</h1>
+      <main class="conteudo">
+        <section class="conteudo-principal">
+          <div class="conteudo-principal-escrito">
+            <h1 class="conteudo-principal-escrito-titulo">
+              Analisar imagem com IA
+            </h1>
 
-                    <input type="file" id="imagemInput" accept="image/*" hidden>
+            <input type="file" id="imagemInput" accept="image/*" hidden />
 
-                    <button class="upload" id="botaoUpload">
-                        Faça o Upload da imagem
-                    </button>
+            <button class="upload" id="botaoUpload">
+              Faça o Upload da imagem
+            </button>
 
-                    <p id="nomeArquivo"></p>
-                </div>     
-            </section>
+            <p id="nomeArquivo"></p>
+          </div>
+        </section>
 
-            <section class="corpo-secundario"> 
-                <h3 class="corpo-secundario-titulo">Analisando com IA</h3>
-                <p class="corpo-secundario-sobre">Resultado:</p>
+        <section class="corpo-secundario">
+          <h3 class="corpo-secundario-titulo">Analisando com IA</h3>
+          <p class="corpo-secundario-sobre">Resultado:</p>
 
-                <img id="previewImagem" alt="Preview da imagem" style="display: none;">
-                <p id="resultado"></p>
-            </section>
-        </main>
+          <img
+            id="previewImagem"
+            alt="Preview da imagem"
+            style="display: none"
+          />
+          <p id="resultado"></p>
+        </section>
+      </main>
     </div>
 
     <footer class="footer-contato">
-        <h4 class="roda-pe-contato">Email para contato: LabLeaf@outlook.com</h4>
-        <a href="https://github.com/Rafael-Casarin" target="_blank" rel="noopener noreferrer" class="github-link">
-            Meu GitHub
-        </a>
+      <h4 class="roda-pe-contato">Email para contato: LabLeaf@outlook.com</h4>
+      <a
+        href="https://github.com/Rafael-Casarin"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="github-link"
+      >
+        Meu GitHub
+      </a>
     </footer>
-
-    <script src="script.js"></script>
-</body>
+  </body>
+  <script>
+    if (localStorage.getItem("logado") !== "true") {
+      window.location.href = "login.html";
+    }
+  </script>
+  <script src="script.js"></script>
+  <script src="auth.js"></script>
+</html>
