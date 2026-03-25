@@ -9,69 +9,50 @@ if (botao && input && nomeArquivo && previewImagem && resultado) {
     input.click();
   });
 
-  input.addEventListener("change", () => {
+  input.addEventListener("change", async () => {
     const file = input.files[0];
 
     if (file) {
       nomeArquivo.textContent = `Arquivo selecionado: ${file.name}`;
 
+      // preview da imagem
       const url = URL.createObjectURL(file);
       previewImagem.src = url;
       previewImagem.style.display = "block";
 
-      resultado.textContent = "Imagem carregada com sucesso.";
+      resultado.textContent = "Analisando imagem...";
+
+      try {
+        // 🔥 ENVIO PARA API
+        const formData = new FormData();
+        formData.append("file", file);
+
+        const response = await fetch("/predict", {
+          method: "POST",
+          body: formData
+        });
+
+        const data = await response.json();
+
+        // 🔥 MOSTRAR RESULTADO
+        resultado.innerHTML = `
+          🌿 Doença: <b>${data.classe}</b><br>
+          📊 Confiança: <b>${data.confianca}%</b><br>
+          💡 ${data.recomendacao}
+        `;
+
+        // 🔥 MOSTRAR IMAGEM PROCESSADA
+        previewImagem.src = data.imagem_resultado;
+
+      } catch (error) {
+        console.error(error);
+        resultado.textContent = "Erro ao analisar imagem.";
+      }
+
     } else {
       nomeArquivo.textContent = "";
       previewImagem.style.display = "none";
       resultado.textContent = "";
     }
   });
-}
-
-function cadastrar(event) {
-  event.preventDefault();
-
-  const nome = document.getElementById("nome").value.trim();
-  const email = document.getElementById("email").value.trim();
-  const senha = document.getElementById("senha").value;
-  const confirmarSenha = document.getElementById("confirmarSenha").value;
-
-  if (!nome || !email || !senha || !confirmarSenha) {
-    alert("Preencha todos os campos.");
-    return;
-  }
-
-  if (senha !== confirmarSenha) {
-    alert("As senhas não coincidem.");
-    return;
-  }
-
-  localStorage.setItem("usuarioNome", nome);
-  localStorage.setItem("usuarioEmail", email);
-  localStorage.setItem("usuarioSenha", senha);
-
-  alert("Cadastro realizado com sucesso!");
-  window.location.href = "login.html";
-}
-
-function entrar(event) {
-  event.preventDefault();
-
-  const email = document.getElementById("email").value.trim();
-  const senha = document.getElementById("senha").value;
-
-  const emailSalvo = localStorage.getItem("usuarioEmail");
-  const senhaSalva = localStorage.getItem("usuarioSenha");
-
-  if (email === emailSalvo && senha === senhaSalva) {
-    localStorage.setItem("logado", "true");
-    window.location.href = "index.html";
-  } else {
-    alert("E-mail ou senha inválidos.");
-  }
-}
-
-function sair() {
-  localStorage.removeItem("logado");
-  window.location.href = "login.html";
 }

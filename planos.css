@@ -1,0 +1,372 @@
+:root {
+  --azul-escuro: #123c84;
+  --azul-medio: #2d6fc4;
+  --azul-claro: #58b7df;
+  --branco: #ffffff;
+  --branco-suave: rgba(255, 255, 255, 0.9);
+  --card-claro: #eceff3;
+  --card-claro-2: #f4f6f9;
+  --texto-escuro: #133b82;
+  --texto-medio: #5d6b7f;
+  --texto-suave: #7b8798;
+  --linha: #d6dde6;
+  --sombra-card: 0 18px 40px rgba(0, 0, 0, 0.18);
+  --sombra-botao: 0 10px 22px rgba(23, 78, 155, 0.28);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  min-height: 100vh;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  background: linear-gradient(
+    120deg,
+    var(--azul-escuro) 15%,
+    #3278b4 60%,
+    var(--azul-claro) 100%
+  );
+  color: var(--branco);
+}
+
+.page {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 15% 85%, rgba(255, 255, 255, 0.08), transparent 25%),
+    radial-gradient(circle at 90% 15%, rgba(255, 255, 255, 0.1), transparent 20%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.topbar {
+  position: relative;
+  z-index: 2;
+  height: 88px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 50px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--branco);
+}
+
+.logo-icon {
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.top-actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.nav-link {
+  color: var(--branco);
+  text-decoration: none;
+  font-weight: 600;
+  opacity: 0.95;
+}
+
+.nav-link:hover {
+  opacity: 1;
+  text-decoration: underline;
+}
+
+.planos-wrapper {
+  position: relative;
+  z-index: 2;
+  padding: 10px 50px 50px;
+}
+
+.planos-hero {
+  max-width: 760px;
+  margin-bottom: 42px;
+}
+
+.hero-badge {
+  display: inline-block;
+  margin-bottom: 18px;
+  padding: 10px 16px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: var(--branco);
+  font-size: 0.92rem;
+  font-weight: 600;
+  backdrop-filter: blur(8px);
+}
+
+.planos-hero h1 {
+  font-size: 3.4rem;
+  line-height: 1.08;
+  font-weight: 800;
+  margin-bottom: 18px;
+  max-width: 740px;
+}
+
+.planos-hero p {
+  font-size: 1.08rem;
+  line-height: 1.75;
+  color: var(--branco-suave);
+  max-width: 650px;
+}
+
+.planos-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 26px;
+  align-items: stretch;
+}
+
+.plano-card {
+  position: relative;
+  background: var(--card-claro);
+  color: var(--texto-escuro);
+  border-radius: 28px;
+  padding: 28px 24px 24px;
+  box-shadow: var(--sombra-card);
+  display: flex;
+  flex-direction: column;
+  min-height: 520px;
+}
+
+.plano-card.destaque {
+  background: linear-gradient(180deg, #f8fbff 0%, #e9f1fb 100%);
+  transform: translateY(-10px);
+  border: 2px solid rgba(45, 111, 196, 0.22);
+}
+
+.plano-badge {
+  position: absolute;
+  top: -14px;
+  left: 24px;
+  background: linear-gradient(90deg, var(--azul-medio), var(--azul-claro));
+  color: var(--branco);
+  font-size: 0.82rem;
+  font-weight: 700;
+  padding: 8px 14px;
+  border-radius: 999px;
+  box-shadow: var(--sombra-botao);
+}
+
+.plano-topo {
+  margin-bottom: 22px;
+}
+
+.plano-tag {
+  display: inline-block;
+  margin-bottom: 14px;
+  padding: 7px 12px;
+  border-radius: 999px;
+  background: #dbe7f7;
+  color: var(--texto-escuro);
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.destaque-tag {
+  background: rgba(45, 111, 196, 0.12);
+  color: #1b56aa;
+}
+
+.plano-topo h2 {
+  font-size: 1.7rem;
+  margin-bottom: 10px;
+  font-weight: 800;
+}
+
+.plano-desc {
+  font-size: 0.98rem;
+  line-height: 1.65;
+  color: var(--texto-medio);
+}
+
+.plano-preco {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  margin-bottom: 24px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--linha);
+}
+
+.valor {
+  font-size: 2.8rem;
+  font-weight: 800;
+  color: var(--texto-escuro);
+}
+
+.periodo {
+  font-size: 1rem;
+  color: var(--texto-medio);
+  font-weight: 600;
+}
+
+.beneficios {
+  list-style: none;
+  margin-bottom: 30px;
+  display: grid;
+  gap: 14px;
+  flex: 1;
+}
+
+.beneficios li {
+  position: relative;
+  padding-left: 28px;
+  color: #31465f;
+  line-height: 1.5;
+  font-size: 0.97rem;
+}
+
+.beneficios li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: #1f6ad2;
+  font-weight: 800;
+}
+
+.btn-primary,
+.btn-secundario {
+  width: 100%;
+  height: 56px;
+  border: none;
+  border-radius: 18px;
+  font-size: 1rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: transform 0.2s ease, opacity 0.2s ease, background 0.2s ease;
+}
+
+.btn-primary {
+  background: linear-gradient(90deg, var(--azul-medio), var(--azul-claro));
+  color: var(--branco);
+  box-shadow: var(--sombra-botao);
+}
+
+.btn-secundario {
+  background: #dfe7f2;
+  color: var(--texto-escuro);
+}
+
+.btn-primary:hover,
+.btn-secundario:hover {
+  opacity: 0.95;
+  transform: translateY(-1px);
+}
+
+.btn-primary:active,
+.btn-secundario:active {
+  transform: translateY(0);
+}
+
+@media (max-width: 1100px) {
+  .planos-grid {
+    grid-template-columns: 1fr;
+    max-width: 520px;
+  }
+
+  .plano-card.destaque {
+    transform: none;
+  }
+}
+
+@media (max-width: 860px) {
+  .topbar {
+    padding: 0 22px;
+  }
+
+  .planos-wrapper {
+    padding: 12px 22px 34px;
+  }
+
+  .planos-hero h1 {
+    font-size: 2.6rem;
+  }
+}
+
+@media (max-width: 560px) {
+  .topbar {
+    height: 78px;
+    padding: 0 16px;
+    gap: 12px;
+  }
+
+  .logo {
+    font-size: 1.08rem;
+    gap: 10px;
+  }
+
+  .logo-icon {
+    font-size: 1.7rem;
+  }
+
+  .top-actions {
+    gap: 12px;
+  }
+
+  .nav-link {
+    font-size: 0.92rem;
+  }
+
+  .planos-wrapper {
+    padding: 8px 16px 28px;
+  }
+
+  .planos-hero h1 {
+    font-size: 2.1rem;
+  }
+
+  .planos-hero p {
+    font-size: 1rem;
+    line-height: 1.65;
+  }
+
+  .hero-badge {
+    font-size: 0.82rem;
+    padding: 9px 13px;
+  }
+
+  .plano-card {
+    min-height: auto;
+    padding: 24px 18px 20px;
+    border-radius: 22px;
+  }
+
+  .plano-topo h2 {
+    font-size: 1.45rem;
+  }
+
+  .valor {
+    font-size: 2.3rem;
+  }
+
+  .btn-primary,
+  .btn-secundario {
+    height: 52px;
+    border-radius: 16px;
+  }
+}
