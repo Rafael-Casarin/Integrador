@@ -45,3 +45,25 @@ function sair() {
   localStorage.removeItem("logado");
   window.location.href = "login.html";
 }
+
+function cadastrar(event) {
+  event.preventDefault();
+
+  const senha = document.getElementById("senha").value;
+  const confirmar = document.getElementById("confirmarSenha").value;
+
+  // valida tamanho
+  if (min-length < 8) {
+    alert("A senha deve ter no mínimo 8 caracteres.");
+    return;
+  }
+
+  // valida confirmação
+  if (senha !== confirmar) {
+    alert("As senhas não coincidem.");
+    return;
+  }
+
+  // se passou tudo
+  alert("Cadastro realizado com sucesso!");
+}

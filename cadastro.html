@@ -97,8 +97,9 @@
                 <label for="confirmarSenha">Confirmar senha</label>
                 <input
                   type="password"
-                  id="confirmarSenha"
-                  placeholder="Repita a senha"
+                  id="senha"
+                  placeholder="Crie uma senha"
+                  minlength="8"
                   required
                 />
               </div>
@@ -106,6 +107,7 @@
               <div class="password-tips">
                 <span>Use pelo menos 8 caracteres.</span>
               </div>
+              <div id="erroSenha" style="color: red; font-size: 0.9rem"></div>
 
               <button type="submit" class="btn-primary">Cadastrar</button>
 
