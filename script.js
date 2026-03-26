@@ -11,6 +11,10 @@ const dropdownMenu = document.getElementById("dropdownMenu");
 const logoutBtn = document.getElementById("logoutBtn");
 const removerBtn = document.getElementById("removerImagem");
 
+// 🔥 SUA API
+const API_BASE = "http://192.168.2.185:8000";
+const API_URL = API_BASE + "/predict";
+
 // MENU DROPDOWN
 if (menuButton && dropdownMenu) {
   menuButton.addEventListener("click", function (e) {
@@ -34,7 +38,7 @@ if (logoutBtn) {
   });
 }
 
-// BOTÃO REMOVER IMAGEM
+// REMOVER IMAGEM
 if (removerBtn) {
   removerBtn.addEventListener("click", function () {
     input.value = "";
@@ -65,27 +69,7 @@ if (botao && input && nomeArquivo && previewImagem && resultado) {
   input.addEventListener("change", async function () {
     const file = input.files[0];
 
-    if (!file) {
-      nomeArquivo.textContent = "";
-      previewImagem.src = "";
-      previewImagem.style.display = "none";
-
-      if (previewPlaceholder) {
-        previewPlaceholder.style.display = "block";
-      }
-
-      resultado.textContent = "Nenhuma análise realizada ainda.";
-
-      if (statusAnalise) {
-        statusAnalise.textContent = "Aguardando imagem";
-      }
-
-      if (removerBtn) {
-        removerBtn.classList.remove("show");
-      }
-
-      return;
-    }
+    if (!file) return;
 
     nomeArquivo.textContent = `Arquivo selecionado: ${file.name}`;
 
@@ -93,34 +77,26 @@ if (botao && input && nomeArquivo && previewImagem && resultado) {
     previewImagem.src = url;
     previewImagem.style.display = "block";
 
-    if (previewPlaceholder) {
-      previewPlaceholder.style.display = "none";
-    }
-
-    if (removerBtn) {
-      removerBtn.classList.add("show");
-    }
+    if (previewPlaceholder) previewPlaceholder.style.display = "none";
+    if (removerBtn) removerBtn.classList.add("show");
 
     resultado.textContent = "Analisando imagem...";
-
-    if (statusAnalise) {
-      statusAnalise.textContent = "Analisando";
-    }
+    if (statusAnalise) statusAnalise.textContent = "Analisando";
 
     try {
       const formData = new FormData();
       formData.append("file", file);
 
-      const response = await fetch("/predict", {
+      const response = await fetch(API_URL, {
         method: "POST",
-        body: formData
+        body: formData,
       });
 
-      if (!response.ok) {
-        throw new Error("Falha na resposta da API");
-      }
-
       const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.erro || "Erro na API");
+      }
 
       resultado.innerHTML = `
         <strong>Doença identificada:</strong> ${data.classe}<br>
@@ -128,20 +104,19 @@ if (botao && input && nomeArquivo && previewImagem && resultado) {
         <strong>Recomendação:</strong> ${data.recomendacao}
       `;
 
-      if (statusAnalise) {
-        statusAnalise.textContent = "Resultado pronto";
-      }
+      if (statusAnalise) statusAnalise.textContent = "Resultado pronto";
 
+      // 🔥 CORREÇÃO IMPORTANTE DA IMAGEM
       if (data.imagem_resultado) {
-        previewImagem.src = data.imagem_resultado;
+        previewImagem.src =
+          API_BASE + data.imagem_resultado + "?t=" + new Date().getTime();
       }
     } catch (error) {
-      console.error("Erro ao analisar imagem:", error);
-      resultado.textContent = "Erro ao analisar imagem.";
+      console.error(error);
 
-      if (statusAnalise) {
-        statusAnalise.textContent = "Erro na análise";
-      }
+      resultado.textContent = "Erro: " + error.message;
+
+      if (statusAnalise) statusAnalise.textContent = "Erro na análise";
     }
   });
 }
