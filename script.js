@@ -12,7 +12,7 @@ const logoutBtn = document.getElementById("logoutBtn");
 const removerBtn = document.getElementById("removerImagem");
 
 // 🔥 SUA API
-const API_BASE = "http://192.168.2.185:8000";
+const API_BASE = "https://abc123.ngrok-free.app";
 const API_URL = API_BASE + "/predict";
 
 // MENU DROPDOWN
