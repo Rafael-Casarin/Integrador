@@ -53,7 +53,7 @@ function cadastrar(event) {
   const confirmar = document.getElementById("confirmarSenha").value;
 
   // valida tamanho
-  if (min-length < 8) {
+  if (min - length < 8) {
     alert("A senha deve ter no mínimo 8 caracteres.");
     return;
   }

@@ -26,7 +26,12 @@ body {
 }
 
 body {
-  background: linear-gradient(120deg, var(--azul-escuro) 15%, #3278b4 60%, var(--azul-claro) 100%);
+  background: linear-gradient(
+    120deg,
+    var(--azul-escuro) 15%,
+    #3278b4 60%,
+    var(--azul-claro) 100%
+  );
   color: var(--branco);
 }
 
@@ -40,8 +45,16 @@ body {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(circle at 15% 85%, rgba(255, 255, 255, 0.08), transparent 25%),
-    radial-gradient(circle at 90% 15%, rgba(255, 255, 255, 0.1), transparent 20%);
+    radial-gradient(
+      circle at 15% 85%,
+      rgba(255, 255, 255, 0.08),
+      transparent 25%
+    ),
+    radial-gradient(
+      circle at 90% 15%,
+      rgba(255, 255, 255, 0.1),
+      transparent 20%
+    );
   z-index: 1;
   pointer-events: none;
 }
@@ -247,7 +260,9 @@ form {
   font-weight: 800;
   cursor: pointer;
   box-shadow: var(--sombra-botao);
-  transition: transform 0.2s ease, opacity 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    opacity 0.2s ease;
 }
 
 .btn-primary:hover {
