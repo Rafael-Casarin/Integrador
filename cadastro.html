@@ -6,6 +6,7 @@
     <title>Cadastro - LabLeaf</title>
     <link rel="stylesheet" href="cadastro.css" />
   </head>
+
   <body>
     <div class="page">
       <div class="overlay"></div>
@@ -18,16 +19,17 @@
       </header>
 
       <main class="cadastro-wrapper">
+        <!-- LADO ESQUERDO -->
         <section class="cadastro-left">
-          <span class="hero-badge"
-            >Plataforma inteligente para análise agrícola</span
-          >
+          <span class="hero-badge">
+            Plataforma inteligente para análise agrícola
+          </span>
 
           <h1>Crie sua conta e comece a analisar folhas com IA</h1>
 
           <p>
-            Cadastre-se para enviar imagens, acompanhar diagnósticos, visualizar
-            relatórios e organizar seus resultados de forma simples.
+            Cadastre-se para enviar imagens, acompanhar diagnósticos,
+            visualizar relatórios e organizar seus resultados de forma simples.
           </p>
 
           <div class="hero-highlights">
@@ -57,12 +59,14 @@
           </div>
         </section>
 
+        <!-- LADO DIREITO -->
         <section class="cadastro-right">
           <div class="form-card cadastro-card">
             <h2>Cadastro</h2>
             <p class="subtitle">Preencha os dados para criar sua conta</p>
 
             <form onsubmit="cadastrar(event)">
+              <!-- NOME -->
               <div class="input-group">
                 <label for="nome">Nome completo</label>
                 <input
@@ -73,6 +77,7 @@
                 />
               </div>
 
+              <!-- EMAIL -->
               <div class="input-group">
                 <label for="email">E-mail</label>
                 <input
@@ -83,18 +88,9 @@
                 />
               </div>
 
+              <!-- SENHA -->
               <div class="input-group">
                 <label for="senha">Senha</label>
-                <input
-                  type="password"
-                  id="senha"
-                  placeholder="Crie uma senha"
-                  required
-                />
-              </div>
-
-              <div class="input-group">
-                <label for="confirmarSenha">Confirmar senha</label>
                 <input
                   type="password"
                   id="senha"
@@ -104,12 +100,28 @@
                 />
               </div>
 
-              <div class="password-tips">
-                <span>Use pelo menos 8 caracteres.</span>
+              <!-- CONFIRMAR SENHA -->
+              <div class="input-group">
+                <label for="confirmarSenha">Confirmar senha</label>
+                <input
+                  type="password"
+                  id="confirmarSenha"
+                  placeholder="Confirme sua senha"
+                  minlength="8"
+                  required
+                />
               </div>
-              <div id="erroSenha" style="color: red; font-size: 0.9rem"></div>
 
-              <button type="submit" class="btn-primary">Cadastrar</button>
+              <!-- ERRO -->
+              <div
+                id="erroSenha"
+                style="color: red; font-size: 0.9rem; margin-bottom: 10px"
+              ></div>
+
+              <!-- BOTÃO -->
+              <button type="submit" class="btn-primary">
+                Cadastrar
+              </button>
 
               <p class="form-link-text">
                 Já tem conta? <a href="login.html">Entrar</a>
