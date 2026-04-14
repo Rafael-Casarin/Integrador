@@ -10,16 +10,38 @@
     <div class="page">
       <div class="overlay"></div>
 
-      <header class="topbar">
-        <div class="logo">
-          <span class="logo-icon">🌿</span>
-          <span>LabLeaf</span>
+      <header class="cabecalho">
+        <div class="logo-area">
+          <img src="imagens/Leaf.png" alt="Logo LabLeaf" class="logo-img" />
+          <span class="logo-texto">LabLeaf</span>
         </div>
 
-        <nav class="top-actions">
-          <a href="index.html" class="nav-link">Início</a>
-          <a href="login.html" class="nav-link">Sair</a>
+        <nav class="menu">
+          <a href="index.html">Análise</a>
+          <a href="#">Relatórios</a>
+          <a href="planos.html" class="active">Planos</a>
         </nav>
+
+        <div class="user-container">
+          <button
+            class="user"
+            id="menuButton"
+            type="button"
+            aria-label="Abrir menu"
+          >
+            <div class="menu-icon">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+          </button>
+
+          <div class="dropdown" id="dropdownMenu">
+            <a href="#">Configurações</a>
+            <a href="#">Perfil</a>
+            <a href="login.html" id="logoutBtn">Sair</a>
+          </div>
+        </div>
       </header>
 
       <main class="planos-wrapper">
@@ -28,8 +50,7 @@
           <h1>Escolha o plano ideal para acompanhar sua lavoura com IA</h1>
           <p>
             Compare os recursos e escolha a opção que mais combina com seu uso.
-            Depois você ajusta os nomes, preços e descrições do jeito que
-            quiser.
+            Depois você ajusta os nomes, preços e descrições do jeito que quiser.
           </p>
         </section>
 
@@ -39,8 +60,7 @@
               <span class="plano-tag">Básico</span>
               <h2>Plano Inicial</h2>
               <p class="plano-desc">
-                Ideal para começar a usar a plataforma e testar os recursos
-                principais.
+                Ideal para começar a usar a plataforma e testar os recursos principais.
               </p>
             </div>
 
@@ -66,8 +86,7 @@
               <span class="plano-tag destaque-tag">Profissional</span>
               <h2>Plano Pro</h2>
               <p class="plano-desc">
-                Para quem precisa de mais análises, organização e
-                acompanhamento.
+                Para quem precisa de mais análises, organização e acompanhamento.
               </p>
             </div>
 
@@ -112,5 +131,7 @@
         </section>
       </main>
     </div>
+
+    <script src="script.js"></script>
   </body>
 </html>

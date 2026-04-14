@@ -11,11 +11,9 @@ const dropdownMenu = document.getElementById("dropdownMenu");
 const logoutBtn = document.getElementById("logoutBtn");
 const removerBtn = document.getElementById("removerImagem");
 
-// 🔥 SUA API
-const API_BASE = "https://abc123.ngrok-free.app";
-const API_URL = API_BASE + "/predict";
+const API_BASE = "https://uncomplicatedly-promisable-charisse.ngrok-free.dev";
+const API_URL = `${API_BASE}/predict`;
 
-// MENU DROPDOWN
 if (menuButton && dropdownMenu) {
   menuButton.addEventListener("click", function (e) {
     e.stopPropagation();
@@ -31,14 +29,12 @@ if (menuButton && dropdownMenu) {
   });
 }
 
-// SAIR
 if (logoutBtn) {
   logoutBtn.addEventListener("click", function () {
     localStorage.removeItem("logado");
   });
 }
 
-// REMOVER IMAGEM
 if (removerBtn) {
   removerBtn.addEventListener("click", function () {
     input.value = "";
@@ -60,7 +56,6 @@ if (removerBtn) {
   });
 }
 
-// UPLOAD E ANÁLISE
 if (botao && input && nomeArquivo && previewImagem && resultado) {
   botao.addEventListener("click", function () {
     input.click();
@@ -68,7 +63,6 @@ if (botao && input && nomeArquivo && previewImagem && resultado) {
 
   input.addEventListener("change", async function () {
     const file = input.files[0];
-
     if (!file) return;
 
     nomeArquivo.textContent = `Arquivo selecionado: ${file.name}`;
@@ -89,6 +83,9 @@ if (botao && input && nomeArquivo && previewImagem && resultado) {
 
       const response = await fetch(API_URL, {
         method: "POST",
+        headers: {
+          "ngrok-skip-browser-warning": "1"
+        },
         body: formData,
       });
 
@@ -106,14 +103,12 @@ if (botao && input && nomeArquivo && previewImagem && resultado) {
 
       if (statusAnalise) statusAnalise.textContent = "Resultado pronto";
 
-      // 🔥 CORREÇÃO IMPORTANTE DA IMAGEM
       if (data.imagem_resultado) {
         previewImagem.src =
           API_BASE + data.imagem_resultado + "?t=" + new Date().getTime();
       }
     } catch (error) {
       console.error(error);
-
       resultado.textContent = "Erro: " + error.message;
 
       if (statusAnalise) statusAnalise.textContent = "Erro na análise";

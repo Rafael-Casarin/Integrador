@@ -52,46 +52,106 @@ body {
   pointer-events: none;
 }
 
-.topbar {
+.cabecalho {
   position: relative;
   z-index: 2;
   height: 88px;
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
   align-items: center;
-  justify-content: space-between;
   padding: 0 50px;
 }
 
-.logo {
+.logo-area {
   display: flex;
   align-items: center;
-  gap: 14px;
-  font-size: 1.25rem;
+  gap: 12px;
+  justify-self: start;
+}
+
+.logo-img {
+  width: 42px;
+  height: 42px;
+  object-fit: contain;
+}
+
+.logo-texto {
+  color: white;
+  font-size: 18px;
   font-weight: 700;
-  color: var(--branco);
 }
 
-.logo-icon {
-  font-size: 2rem;
-  line-height: 1;
-}
-
-.top-actions {
+.menu {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 28px;
+  justify-self: center;
 }
 
-.nav-link {
-  color: var(--branco);
+.menu a {
+  color: white;
   text-decoration: none;
-  font-weight: 600;
-  opacity: 0.95;
+  font-size: 15px;
+  font-weight: 500;
+  padding-bottom: 4px;
 }
 
-.nav-link:hover {
-  opacity: 1;
-  text-decoration: underline;
+.menu a.active {
+  font-weight: 700;
+  border-bottom: 3px solid #9fd3ff;
+}
+
+.user-container {
+  position: relative;
+  justify-self: end;
+}
+
+.user {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+}
+
+.menu-icon {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.menu-icon span {
+  display: block;
+  width: 28px;
+  height: 3px;
+  background-color: white;
+  border-radius: 2px;
+}
+
+.dropdown {
+  display: none;
+  position: absolute;
+  top: 50px;
+  right: 0;
+  min-width: 160px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  padding: 10px 0;
+}
+
+.dropdown.show {
+  display: block;
+}
+
+.dropdown a {
+  display: block;
+  padding: 10px 16px;
+  color: #1f3558;
+  text-decoration: none;
+}
+
+.dropdown a:hover {
+  background: #f2f6fb;
 }
 
 .planos-wrapper {
