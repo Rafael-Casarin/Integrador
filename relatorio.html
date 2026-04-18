@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Relatórios - LabLeaf</title>
+    <link rel="stylesheet" href="relatorio.css" />
+  </head>
+
+  <body>
+    <header class="cabecalho">
+      <div class="logo-area">
+        <img src="imagens/lableaf.png" alt="Logo LabLeaf" class="logo-img" />
+        <span class="logo-texto">LabLeaf</span>
+      </div>
+
+      <nav class="menu">
+        <a href="index.html">Análise</a>
+        <a href="relatorios.html" class="active">Relatórios</a>
+        <a href="planos.html">Planos</a>
+      </nav>
+
+      <div class="user-container">
+        <button class="user" id="menuButton" aria-label="Abrir menu">
+          <div class="menu-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </button>
+
+        <div class="dropdown" id="dropdownMenu">
+          <a href="#">Configurações</a>
+          <a href="#">Minha conta</a>
+          <a href="#">Sair</a>
+        </div>
+      </div>
+    </header>
+
+    <main class="container">
+      <section class="conteudo relatorios-conteudo">
+        <section class="hero relatorios-hero">
+          <h1 class="titulo-principal">Relatórios</h1>
+          <p class="subtitulo-principal">
+            Acompanhe o histórico e as métricas das análises realizadas na plataforma.
+          </p>
+        </section>
+
+        <section class="resumo-grid">
+          <article class="card resumo-card">
+            <p class="resumo-label">Total de análises</p>
+            <h3 class="resumo-valor">52</h3>
+          </article>
+
+          <article class="card resumo-card">
+            <p class="resumo-label">Doentes</p>
+            <h3 class="resumo-valor danger-text">31</h3>
+          </article>
+
+          <article class="card resumo-card">
+            <p class="resumo-label">Saudáveis</p>
+            <h3 class="resumo-valor success-text">21</h3>
+          </article>
+
+          <article class="card resumo-card">
+            <p class="resumo-label">Doença mais comum</p>
+            <h3 class="resumo-valor">Ferrugem</h3>
+          </article>
+        </section>
+
+        <section class="card filtros-card">
+          <div class="filtros-linha">
+            <select class="filtro-select">
+              <option>Últimos 7 dias</option>
+              <option>Últimos 30 dias</option>
+              <option>Todos</option>
+            </select>
+
+            <select class="filtro-select">
+              <option>Todas doenças</option>
+              <option>Ferrugem</option>
+              <option>Mancha Foliar</option>
+              <option>Saudável</option>
+            </select>
+
+            <button class="upload btn-filtrar">Filtrar</button>
+          </div>
+        </section>
+
+        <section class="graficos-grid">
+          <article class="card grafico-card">
+            <h2>Análises por período</h2>
+            <p class="card-descricao">
+              Volume de análises realizadas ao longo do tempo.
+            </p>
+            <div class="grafico-placeholder">[ gráfico aqui ]</div>
+          </article>
+
+          <article class="card grafico-card">
+            <h2>Distribuição de doenças</h2>
+            <p class="card-descricao">
+              Frequência de diagnósticos identificados pelo sistema.
+            </p>
+            <div class="grafico-placeholder">[ gráfico aqui ]</div>
+          </article>
+        </section>
+
+        <section class="card historico-card">
+          <div class="historico-topo">
+            <h2>Histórico de análises</h2>
+            <p class="card-descricao">
+              Visualize as últimas análises registradas.
+            </p>
+          </div>
+
+          <div class="tabela-wrapper">
+            <table class="tabela-relatorios">
+              <thead>
+                <tr>
+                  <th>Imagem</th>
+                  <th>Data</th>
+                  <th>Diagnóstico</th>
+                  <th>Confiança</th>
+                  <th>Status</th>
+                  <th>Ação</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr>
+                  <td>
+                    <div class="miniatura"></div>
+                  </td>
+                  <td>17/04/2026</td>
+                  <td>Ferrugem</td>
+                  <td>92%</td>
+                  <td><span class="status status-danger">Doente</span></td>
+                  <td><button class="btn-tabela">Ver</button></td>
+                </tr>
+
+                <tr>
+                  <td>
+                    <div class="miniatura"></div>
+                  </td>
+                  <td>17/04/2026</td>
+                  <td>Saudável</td>
+                  <td>97%</td>
+                  <td><span class="status status-success">Saudável</span></td>
+                  <td><button class="btn-tabela">Ver</button></td>
+                </tr>
+
+                <tr>
+                  <td>
+                    <div class="miniatura"></div>
+                  </td>
+                  <td>16/04/2026</td>
+                  <td>Mancha Foliar</td>
+                  <td>88%</td>
+                  <td><span class="status status-danger">Doente</span></td>
+                  <td><button class="btn-tabela">Ver</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-content">
+        <div class="footer-info">
+          <p>LabLeaf - Inteligência para análise agrícola</p>
+          <p>Contato: lableaf@gmail.com</p>
+        </div>
+
+        <div class="footer-links">
+          <a href="#">Termos</a>
+          <a href="#">Privacidade</a>
+          <a href="#">GitHub</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
