@@ -12,73 +12,108 @@
 
       <header class="topbar">
         <div class="logo">
-          <span class="logo-icon">🌿</span>
-          <span>LabLeaf</span>
+          <img src="imagens/lableaf.png" alt="Logo LabLeaf" class="logo-img" />
+          <span class="logo-txt">LabLeaf</span>
         </div>
       </header>
 
-      <main class="login-wrapper">
-        <section class="login-left">
-          <h1>Monitore a saúde da lavoura com inteligência</h1>
-          <p>
-            Faça login para enviar imagens, analisar folhas de soja e acompanhar
-            diagnósticos de forma rápida e organizada.
-          </p>
+      <main class="content">
+        <section class="hero-section">
+          <div class="login-wrapper">
+            <section class="login-left">
+              <span class="hero-badge">Plataforma inteligente para análise agrícola</span>
 
-          <div class="features">
-            <div class="feature-card">
-              <h3>Upload de imagens</h3>
-              <p>Envie fotos das folhas e receba a análise automaticamente.</p>
-            </div>
+              <h1>Monitore a saúde da lavoura com inteligência</h1>
 
-            <div class="feature-card">
-              <h3>Relatórios rápidos</h3>
-              <p>Visualize resultados e acompanhe casos identificados.</p>
-            </div>
+              <p>
+                Faça login para enviar imagens, analisar folhas de soja e acompanhar
+                diagnósticos de forma rápida, organizada e acessível.
+              </p>
+
+              <div class="features">
+                <div class="feature-card">
+                  <h3>Upload de imagens</h3>
+                  <p>Envie fotos das folhas e receba a análise automaticamente.</p>
+                </div>
+
+                <div class="feature-card">
+                  <h3>Relatórios rápidos</h3>
+                  <p>Visualize resultados e acompanhe casos identificados.</p>
+                </div>
+              </div>
+            </section>
+
+            <section class="login-right">
+              <div class="login-card">
+                <h2>Entrar</h2>
+                <p class="subtitle">Acesse sua conta para continuar</p>
+
+                <form onsubmit="entrar(event)">
+                  <div class="input-group">
+                    <label for="email">E-mail</label>
+                    <input
+                      type="email"
+                      id="email"
+                      placeholder="Digite seu e-mail"
+                      required
+                    />
+                  </div>
+
+                  <div class="input-group">
+                    <label for="senha">Senha</label>
+                    <input
+                      type="password"
+                      id="senha"
+                      placeholder="Digite sua senha"
+                      required
+                    />
+                  </div>
+
+                  <div class="form-options">
+                    <label class="remember">
+                      <input type="checkbox" />
+                      <span>Lembrar de mim</span>
+                    </label>
+
+                    <a href="#">Esqueci minha senha</a>
+                  </div>
+
+                  <button type="submit" class="btn-login">Entrar</button>
+
+                  <p class="register">
+                    Não tem conta? <a href="cadastro.html">Cadastre-se</a>
+                  </p>
+                </form>
+              </div>
+            </section>
           </div>
         </section>
 
-        <section class="login-right">
-          <div class="login-card">
-            <h2>Entrar</h2>
-            <p class="subtitle">Acesse sua conta para continuar</p>
+        <section class="benefits-section">
+          <div class="section-header">
+            <span class="section-badge">Por que usar o LabLeaf</span>
+            <h2>Mais praticidade para acompanhar a saúde da plantação</h2>
+            <p>
+              A plataforma foi pensada para facilitar o monitoramento das folhas,
+              acelerar diagnósticos e organizar informações importantes do cultivo.
+            </p>
+          </div>
 
-            <form onsubmit="entrar(event)">
-              <div class="input-group">
-                <label for="email">E-mail</label>
-                <input
-                  type="email"
-                  id="email"
-                  placeholder="Digite seu e-mail"
-                  required
-                />
-              </div>
+          <div class="benefits-grid">
+            <article class="benefit-card">
+              <h3>Análise rápida</h3>
+              <p>Receba um retorno inicial em poucos segundos após o envio da imagem.</p>
+            </article>
 
-              <div class="input-group">
-                <label for="senha">Senha</label>
-                <input
-                  type="password"
-                  id="senha"
-                  placeholder="Digite sua senha"
-                  required
-                />
-              </div>
+            <article class="benefit-card">
+              <h3>Acompanhamento organizado</h3>
+              <p>Centralize resultados e mantenha um histórico de análises em um só lugar.</p>
+            </article>
 
-              <div class="form-options">
-                <label class="remember">
-                  <input type="checkbox" />
-                  <span>Lembrar de mim</span>
-                </label>
-
-                <a href="#">Esqueci minha senha</a>
-              </div>
-
-              <button type="submit" class="btn-login">Entrar</button>
-
-              <p class="register">
-                Não tem conta? <a href="cadastro.html">Cadastre-se</a>
-              </p>
-            </form>
+            <article class="benefit-card">
+              <h3>Apoio na tomada de decisão</h3>
+              <p>Tenha uma base inicial para identificar possíveis problemas nas folhas.</p>
+            </article>
           </div>
         </section>
       </main>
