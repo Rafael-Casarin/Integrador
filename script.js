@@ -103,10 +103,10 @@ if (botao && input && nomeArquivo && previewImagem && resultado) {
 
       if (statusAnalise) statusAnalise.textContent = "Resultado pronto";
 
-      if (data.imagem_resultado) {
-        previewImagem.src =
-          API_BASE + data.imagem_resultado + "?t=" + new Date().getTime();
-      }
+      //if (data.imagem_resultado) {
+        //previewImagem.src =
+          //API_BASE + data.imagem_resultado + "?t=" + new Date().getTime();
+     // }
     } catch (error) {
       console.error(error);
       resultado.textContent = "Erro: " + error.message;

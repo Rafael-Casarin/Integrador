@@ -1,15 +1,23 @@
+function obterElemento(id) {
+  return document.getElementById(id);
+}
+
+function mostrarErroSenha(mensagem = "") {
+  const erroSenha = obterElemento("erroSenha");
+  if (erroSenha) {
+    erroSenha.textContent = mensagem;
+  }
+}
+
 function cadastrar(event) {
   event.preventDefault();
 
-  const nome = document.getElementById("nome").value.trim();
-  const email = document.getElementById("email").value.trim();
-  const senha = document.getElementById("senha").value;
-  const confirmarSenha = document.getElementById("confirmarSenha").value;
-  const erroSenha = document.getElementById("erroSenha");
+  const nome = obterElemento("nome")?.value.trim();
+  const email = obterElemento("email")?.value.trim().toLowerCase();
+  const senha = obterElemento("senha")?.value || "";
+  const confirmarSenha = obterElemento("confirmarSenha")?.value || "";
 
-  if (erroSenha) {
-    erroSenha.textContent = "";
-  }
+  mostrarErroSenha();
 
   if (!nome || !email || !senha || !confirmarSenha) {
     alert("Preencha todos os campos.");
@@ -17,20 +25,12 @@ function cadastrar(event) {
   }
 
   if (senha.length < 8) {
-    if (erroSenha) {
-      erroSenha.textContent = "A senha deve ter no mínimo 8 caracteres.";
-    } else {
-      alert("A senha deve ter no mínimo 8 caracteres.");
-    }
+    mostrarErroSenha("A senha deve ter no mínimo 8 caracteres.");
     return;
   }
 
   if (senha !== confirmarSenha) {
-    if (erroSenha) {
-      erroSenha.textContent = "As senhas não coincidem.";
-    } else {
-      alert("As senhas não coincidem.");
-    }
+    mostrarErroSenha("As senhas não coincidem.");
     return;
   }
 
@@ -45,26 +45,38 @@ function cadastrar(event) {
 function entrar(event) {
   event.preventDefault();
 
-  const emailInput = document.getElementById("email");
-  const senhaInput = document.getElementById("senha");
-
-  if (!emailInput || !senhaInput) return;
-
-  const email = emailInput.value.trim();
-  const senha = senhaInput.value;
+  const email = obterElemento("email")?.value.trim().toLowerCase();
+  const senha = obterElemento("senha")?.value || "";
 
   const emailSalvo = localStorage.getItem("usuarioEmail");
   const senhaSalva = localStorage.getItem("usuarioSenha");
 
+  if (!emailSalvo || !senhaSalva) {
+    alert("Nenhuma conta cadastrada. Faça o cadastro primeiro.");
+    return;
+  }
+
   if (email === emailSalvo && senha === senhaSalva) {
     localStorage.setItem("logado", "true");
     window.location.href = "index.html";
-  } else {
-    alert("E-mail ou senha inválidos.");
+    return;
   }
+
+  alert("E-mail ou senha inválidos.");
 }
 
 function sair() {
   localStorage.removeItem("logado");
   window.location.href = "login.html";
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+  const logoutBtn = obterElemento("logoutBtn");
+
+  if (logoutBtn) {
+    logoutBtn.addEventListener("click", (event) => {
+      event.preventDefault();
+      sair();
+    });
+  }
+});

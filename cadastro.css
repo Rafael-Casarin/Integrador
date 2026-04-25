@@ -77,9 +77,10 @@ body {
   color: var(--branco);
 }
 
-.logo-icon {
-  font-size: 2rem;
-  line-height: 1;
+.logo-img {
+  width: 42px;
+  height: 42px;
+  object-fit: contain;
 }
 
 .cadastro-wrapper {
