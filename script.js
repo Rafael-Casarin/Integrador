@@ -1,117 +1,271 @@
-const botao = document.getElementById("botaoUpload");
-const input = document.getElementById("imagemInput");
-const nomeArquivo = document.getElementById("nomeArquivo");
-const previewImagem = document.getElementById("previewImagem");
-const previewPlaceholder = document.getElementById("previewPlaceholder");
-const resultado = document.getElementById("resultado");
-const statusAnalise = document.getElementById("statusAnalise");
+(function () {
+  window.LABLEAF_CONFIG = window.LABLEAF_CONFIG || {
+    IA_API: "https://uncomplicatedly-promisable-charisse.ngrok-free.dev",
+    BACKEND_API: "https://lableaf-backend.onrender.com"
+  };
 
-const menuButton = document.getElementById("menuButton");
-const dropdownMenu = document.getElementById("dropdownMenu");
-const logoutBtn = document.getElementById("logoutBtn");
-const removerBtn = document.getElementById("removerImagem");
+  const IA_API = window.LABLEAF_CONFIG.IA_API.replace(/\/+$/, "");
+  const BACKEND_API = window.LABLEAF_CONFIG.BACKEND_API.replace(/\/+$/, "");
 
-const API_BASE = "https://uncomplicatedly-promisable-charisse.ngrok-free.dev";
-const API_URL = `${API_BASE}/predict`;
+  const API_URL = `${IA_API}/predict`;
 
-if (menuButton && dropdownMenu) {
-  menuButton.addEventListener("click", function (e) {
-    e.stopPropagation();
-    dropdownMenu.classList.toggle("show");
-  });
+  function obterElemento(id) {
+    return document.getElementById(id);
+  }
 
-  document.addEventListener("click", function () {
-    dropdownMenu.classList.remove("show");
-  });
+  async function lerRespostaJson(resposta) {
+    try {
+      return await resposta.json();
+    } catch {
+      return {};
+    }
+  }
 
-  dropdownMenu.addEventListener("click", function (e) {
-    e.stopPropagation();
-  });
-}
+  function limparAnalise() {
+    const input = obterElemento("imagemInput");
+    const nomeArquivo = obterElemento("nomeArquivo");
+    const previewImagem = obterElemento("previewImagem");
+    const previewPlaceholder = obterElemento("previewPlaceholder");
+    const resultado = obterElemento("resultado");
+    const statusAnalise = obterElemento("statusAnalise");
+    const removerBtn = obterElemento("removerImagem");
 
-if (logoutBtn) {
-  logoutBtn.addEventListener("click", function () {
-    localStorage.removeItem("logado");
-  });
-}
+    if (input) input.value = "";
 
-if (removerBtn) {
-  removerBtn.addEventListener("click", function () {
-    input.value = "";
-    previewImagem.src = "";
-    previewImagem.style.display = "none";
+    if (previewImagem) {
+      previewImagem.src = "";
+      previewImagem.style.display = "none";
+    }
 
     if (previewPlaceholder) {
       previewPlaceholder.style.display = "block";
     }
 
-    nomeArquivo.textContent = "";
-    resultado.textContent = "Nenhuma análise realizada ainda.";
+    if (nomeArquivo) {
+      nomeArquivo.textContent = "";
+    }
+
+    if (resultado) {
+      resultado.textContent = "Nenhuma análise realizada ainda.";
+    }
 
     if (statusAnalise) {
       statusAnalise.textContent = "Aguardando imagem";
     }
 
-    removerBtn.classList.remove("show");
-  });
-}
+    if (removerBtn) {
+      removerBtn.classList.remove("show");
+    }
+  }
 
-if (botao && input && nomeArquivo && previewImagem && resultado) {
-  botao.addEventListener("click", function () {
-    input.click();
-  });
+  async function analisarImagemNaIA(file) {
+    const formData = new FormData();
+    formData.append("file", file);
 
-  input.addEventListener("change", async function () {
-    const file = input.files[0];
-    if (!file) return;
+    const resposta = await fetch(API_URL, {
+      method: "POST",
+      headers: {
+        "ngrok-skip-browser-warning": "1"
+      },
+      body: formData
+    });
 
-    nomeArquivo.textContent = `Arquivo selecionado: ${file.name}`;
+    const dados = await lerRespostaJson(resposta);
 
-    const url = URL.createObjectURL(file);
-    previewImagem.src = url;
-    previewImagem.style.display = "block";
+    if (!resposta.ok) {
+      throw new Error(dados.erro || dados.detail || "Erro na API de IA.");
+    }
 
-    if (previewPlaceholder) previewPlaceholder.style.display = "none";
-    if (removerBtn) removerBtn.classList.add("show");
+    return dados;
+  }
 
-    resultado.textContent = "Analisando imagem...";
-    if (statusAnalise) statusAnalise.textContent = "Analisando";
+  async function salvarAnaliseNoBackend(resultadoIA, nomeArquivo) {
+    const token = localStorage.getItem("token");
 
-    try {
-      const formData = new FormData();
-      formData.append("file", file);
+    if (!token) {
+      console.warn("Sem token. A análise não será salva no backend.");
+      return null;
+    }
 
-      const response = await fetch(API_URL, {
-        method: "POST",
-        headers: {
-          "ngrok-skip-browser-warning": "1"
-        },
-        body: formData,
+    const payload = {
+      nome_arquivo: nomeArquivo,
+      classe: resultadoIA.classe || resultadoIA.doenca || resultadoIA.resultado || "",
+      confianca: resultadoIA.confianca || resultadoIA.confidence || resultadoIA.probabilidade || null,
+      recomendacao: resultadoIA.recomendacao || resultadoIA.recommendation || "",
+      resultado_completo: resultadoIA
+    };
+
+    const resposta = await fetch(`${BACKEND_API}/analises/`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      },
+      body: JSON.stringify(payload)
+    });
+
+    const dados = await lerRespostaJson(resposta);
+
+    if (!resposta.ok) {
+      console.error("Erro ao salvar análise no backend:", dados);
+      throw new Error(dados.detail || dados.message || "Erro ao salvar análise no banco.");
+    }
+
+    return dados;
+  }
+
+  function mostrarResultado(resultadoIA) {
+    const resultado = obterElemento("resultado");
+    const statusAnalise = obterElemento("statusAnalise");
+
+    const classe =
+      resultadoIA.classe ||
+      resultadoIA.doenca ||
+      resultadoIA.resultado ||
+      "Não informado";
+
+    const confianca =
+      resultadoIA.confianca ||
+      resultadoIA.confidence ||
+      resultadoIA.probabilidade ||
+      "Não informado";
+
+    const recomendacao =
+      resultadoIA.recomendacao ||
+      resultadoIA.recommendation ||
+      "Nenhuma recomendação retornada.";
+
+    if (resultado) {
+      resultado.innerHTML = `
+        <strong>Doença identificada:</strong> ${classe}<br>
+        <strong>Confiança:</strong> ${confianca}%<br>
+        <strong>Recomendação:</strong> ${recomendacao}
+      `;
+    }
+
+    if (statusAnalise) {
+      statusAnalise.textContent = "Resultado pronto";
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const botao = obterElemento("botaoUpload");
+    const input = obterElemento("imagemInput");
+    const nomeArquivo = obterElemento("nomeArquivo");
+    const previewImagem = obterElemento("previewImagem");
+    const previewPlaceholder = obterElemento("previewPlaceholder");
+    const resultado = obterElemento("resultado");
+    const statusAnalise = obterElemento("statusAnalise");
+
+    const menuButton = obterElemento("menuButton");
+    const dropdownMenu = obterElemento("dropdownMenu");
+    const logoutBtn = obterElemento("logoutBtn");
+    const removerBtn = obterElemento("removerImagem");
+
+    if (localStorage.getItem("logado") !== "true" || !localStorage.getItem("token")) {
+      window.location.href = "login.html";
+      return;
+    }
+
+    if (menuButton && dropdownMenu) {
+      menuButton.addEventListener("click", function (e) {
+        e.stopPropagation();
+        dropdownMenu.classList.toggle("show");
       });
 
-      const data = await response.json();
+      document.addEventListener("click", function () {
+        dropdownMenu.classList.remove("show");
+      });
 
-      if (!response.ok) {
-        throw new Error(data.erro || "Erro na API");
-      }
+      dropdownMenu.addEventListener("click", function (e) {
+        e.stopPropagation();
+      });
+    }
 
-      resultado.innerHTML = `
-        <strong>Doença identificada:</strong> ${data.classe}<br>
-        <strong>Confiança:</strong> ${data.confianca}%<br>
-        <strong>Recomendação:</strong> ${data.recomendacao}
-      `;
+    if (logoutBtn && !logoutBtn.dataset.logoutBound) {
+      logoutBtn.dataset.logoutBound = "true";
 
-      if (statusAnalise) statusAnalise.textContent = "Resultado pronto";
+      logoutBtn.addEventListener("click", function (event) {
+        event.preventDefault();
 
-      //if (data.imagem_resultado) {
-        //previewImagem.src =
-          //API_BASE + data.imagem_resultado + "?t=" + new Date().getTime();
-     // }
-    } catch (error) {
-      console.error(error);
-      resultado.textContent = "Erro: " + error.message;
+        if (typeof window.sair === "function") {
+          window.sair();
+          return;
+        }
 
-      if (statusAnalise) statusAnalise.textContent = "Erro na análise";
+        localStorage.removeItem("token");
+        localStorage.removeItem("logado");
+        localStorage.removeItem("usuarioNome");
+        localStorage.removeItem("usuarioEmail");
+
+        window.location.href = "login.html";
+      });
+    }
+
+    if (removerBtn) {
+      removerBtn.addEventListener("click", function () {
+        limparAnalise();
+      });
+    }
+
+    if (botao && input && nomeArquivo && previewImagem && resultado) {
+      botao.addEventListener("click", function () {
+        input.click();
+      });
+
+      input.addEventListener("change", async function () {
+        const file = input.files[0];
+
+        if (!file) return;
+
+        nomeArquivo.textContent = `Arquivo selecionado: ${file.name}`;
+
+        const url = URL.createObjectURL(file);
+        previewImagem.src = url;
+        previewImagem.style.display = "block";
+
+        if (previewPlaceholder) {
+          previewPlaceholder.style.display = "none";
+        }
+
+        if (removerBtn) {
+          removerBtn.classList.add("show");
+        }
+
+        resultado.textContent = "Analisando imagem...";
+
+        if (statusAnalise) {
+          statusAnalise.textContent = "Analisando";
+        }
+
+        try {
+          const resultadoIA = await analisarImagemNaIA(file);
+
+          mostrarResultado(resultadoIA);
+
+          try {
+            await salvarAnaliseNoBackend(resultadoIA, file.name);
+
+            if (statusAnalise) {
+              statusAnalise.textContent = "Resultado salvo";
+            }
+          } catch (erroBackend) {
+            console.warn("A IA funcionou, mas não salvou no backend:", erroBackend);
+
+            if (statusAnalise) {
+              statusAnalise.textContent = "Resultado pronto, mas não salvo";
+            }
+          }
+        } catch (erro) {
+          console.error("Erro na análise:", erro);
+
+          resultado.textContent = "Erro: " + erro.message;
+
+          if (statusAnalise) {
+            statusAnalise.textContent = "Erro na análise";
+          }
+        }
+      });
     }
   });
-}
+})();
